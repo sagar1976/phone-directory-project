@@ -1,23 +1,10 @@
 import React, {Component} from 'react';
 import { render } from '@testing-library/react';
 import Header from './Header';
-import './App.css'
+import './ShowSubscribers.css'
 
-class App extends Component {
+class ShowSubscribers extends Component {
   render() {
-
-    let subscribers =[
-      {
-        id: 1,
-        name: "Sagar",
-        phone: "789456123"
-      },
-      {
-        id: 2,
-        name: "Deepa",
-        phone: "123456789"
-      }
-    ];
 
     return (
       <div>
@@ -29,7 +16,7 @@ class App extends Component {
             <span className="grid-item phone-heading">Phone</span>
       </div>
       {
-        subscribers.map(sub => {
+        this.props.subscriberList.map(sub => {
           return <div key={sub.id} className="grid-container">
             <span className="grid-item">{sub.name}</span>
             <span className="grid-item">{sub.phone}</span>
@@ -45,4 +32,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default ShowSubscribers;
