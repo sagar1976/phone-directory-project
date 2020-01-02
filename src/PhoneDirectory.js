@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import AddSubscriber from './AddSubscriber';
 import ShowSubscribers from './ShowSubscribers';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 class PhoneDirectory extends Component {
     
     constructor(){
         super();
         this.state = {
-            subscriberList: [
+            subscribersList: [
                 {
                     id: 1,
                     name: 'Sagar Narvekar',
@@ -15,31 +16,35 @@ class PhoneDirectory extends Component {
                 },
                 {
                     id: 2,
-                    name: 'Deepa Narvekar',
+                    name: 'Krishna Narvekar',
                     phone: '963258741'
                 }
             ]
         }
     }
 
+
     addSubscriberHandler = (newSubscriber) => {
-        let subscriberList = this.state.subscriberList;
-        if(subscriberList.length > 1){
-        newSubscriber.id = subscriberList[subscriberList.length - 1].id + 1;
+        let subscribersList = this.state.subscribersList;
+        if(subscribersList.length > 1){
+        newSubscriber.id = subscribersList[subscribersList.length - 1].id + 1;
         } else {
         newSubscriber.id = 1;
         }
-        subscriberList.push(newSubscriber);
-        this.setState({subscriberList : subscriberList});
+        subscribersList.push(newSubscriber);
+        this.setState({subscribersList : subscribersList});
+        console.log(this.state.subscribersList);
     }
 
     render() {
         return (
-            <div>
-               {/*<AddSubscriber addSubscriberHandler={this.addSubscriberHandler} />;*/}
-                <ShowSubscribers subscriberList={this.state.subscriberList} />
-            
-            </div>
+            <Router>
+                <div>
+                    <Route exact path ="/" render={(props) => <ShowSubscribers {...props} subscribersList = {this.state.subscribersList} />} />
+                    <Route exact path ="/add" render={(props) => <AddSubscriber {...props} addSubscriberHandler={this.addSubscriberHandler} />} />
+
+                </div>
+            </Router>
         )
     }
 }
